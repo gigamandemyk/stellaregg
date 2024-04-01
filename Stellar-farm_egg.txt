@@ -1,0 +1,42 @@
+
+getgenv().Configuration = {
+    VerboseMode = {
+        Enabled = true,
+        Formats = {
+            WaitingForCharacter = "[Character] Waiting to load...",
+            CharacterLoaded = "[Character] Loaded.",
+            NoEggsFound = "[Initial Search] No eggs found - fast teleporting...",
+            EggsFoundButCollected = "[Eggs Collected] %d/%d eggs taken while waiting :(",
+            ExtraEggsFound = "[Eggs Collected] %d extra egg(s) collected (spawned while waiting).",
+            InitialFoundEggs = "[Initial Egg Count] %d egg(s)",
+            FoundEggs = "[Eggs Found] %d egg(s)",
+            CollectedEgg = "[Egg Collection] Collected an egg.",
+            AllCollected = "[Final Collection Count] %d egg(s)."
+        }
+    },
+    HopSettings = {
+        HopMode = "Random", -- // if a number, that index will be selected. options: (number), Random, Middle
+        KickBeforeTeleport = true, -- // toggle whether to be kicked then teleported or just teleported
+        KickMessage = "No more eggs left in server, teleporting to next...", -- // the kick message if above is true
+        MinimumPlayers = 1, -- // the minimum amount of players in the servers to hop to
+        MaximumPlayers = 1/0, -- // the maximum amount of players in servers to hop to
+        HopInterval = 300, -- // don't go back to previous hopped servers in the last (this) seconds
+        RetryDelay = 1, -- // if teleport failed, how long until it tries to teleport again
+        SaveLocation = "recenthops.json", -- // where the recently hopped servers is stored
+        ServerFormat = "https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true&cursor=%s", -- // url used to query roblox for the servers
+        MassServerList = { -- // download a massive list of servers and use that, instead of querying servers each time
+            Enabled = false, -- // toggle above
+            RemoveAfterTeleport = false, -- // remove the server from the list after we teleport to it
+            Refresh = 300, -- // how often (in seconds) to refresh the server list
+            Amount = 500, -- // how many servers to fetch
+            MinimumServers = 100, -- // if server list count drops below (this), it refreshes
+            SaveLocation = "massserver.json", -- // where the server list is stored
+        },
+        RetrySame = { -- // under which conditions where it rejoins the same server (if failed to teleport to it)
+            Enum.TeleportResult.Flooded
+        }
+    }
+}
+
+
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/92f04386ba78bbded4a0c10985209ea4.lua"))()
